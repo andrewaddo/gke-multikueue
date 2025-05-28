@@ -6,7 +6,7 @@ The instructions are available at https://github.com/ACW101/ai-on-gke/tree/multi
 
 ## Set up
 
-Get the sample folder
+Get the example folder
 
 ```bash
 mkdir -p dws-multiclusters-example && cd dws-multiclusters-example && git init && git remote add origin https://github.com/ACW101/ai-on-gke.git && git sparse-checkout set tutorials-and-examples/workflow-orchestration/dws-multiclusters-example && git pull origin multikueue
