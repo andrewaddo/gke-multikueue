@@ -12,6 +12,24 @@ Get the example folder
 mkdir -p dws-multiclusters-example && cd dws-multiclusters-example && git init && git remote add origin https://github.com/ACW101/ai-on-gke.git && git sparse-checkout set tutorials-and-examples/workflow-orchestration/dws-multiclusters-example && git pull origin multikueue
 ```
 
+Configure HPA and respective quota for each worker cluster
+
+```bash
+# hpa
+kc config use-context manager-europe-west4
+# the custom metrics
+kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-stackdriver/master/custom-metrics-stackdriver-adapter/deploy/production/adapter.yaml
+kc apply -f hpa.yaml
+
+# edit the ResourceFlavor quota for each regional cluster
+kc config use-context worker-asia-southeast1
+kc edit ClusterQueue dws-cluster-queue # 12
+kc config use-context worker-europe-west4
+kc edit ClusterQueue dws-cluster-queue # 8
+kc config use-context worker-us-east4
+kc edit ClusterQueue dws-cluster-queue # 4
+```
+
 ## Troubleshooting
 
 1. Missing kubectl context for worker-asia-southeast1. Manually create it.
